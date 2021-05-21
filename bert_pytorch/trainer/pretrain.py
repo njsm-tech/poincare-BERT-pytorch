@@ -3,6 +3,8 @@ import torch.nn as nn
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 
+from geoopt.optim import RiemannianAdam
+
 from ..model import BERTLM, BERT
 from .optim_schedule import ScheduledOptim
 
@@ -54,8 +56,8 @@ class BERTTrainer:
         self.train_data = train_dataloader
         self.test_data = test_dataloader
 
-        # Setting the Adam optimizer with hyper-param
-        self.optim = Adam(self.model.parameters(), lr=lr, betas=betas, weight_decay=weight_decay)
+        # Setting the (Riemannian-)Adam optimizer with hyper-param
+        self.optim = RiemannianAdam(self.model.parameters(), lr=lr, betas=betas, weight_decay=weight_decay)
         self.optim_schedule = ScheduledOptim(self.optim, self.bert.hidden, n_warmup_steps=warmup_steps)
 
         # Using Negative Log Likelihood Loss function for predicting the masked_token

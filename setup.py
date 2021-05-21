@@ -31,7 +31,7 @@ setup(
     version=__version__,
     author='Junseong Kim',
     author_email='codertimo@gmail.com',
-    packages=find_packages(),
+    packages=find_packages(exclude=('data',)),
     install_requires=require_packages,
     url="https://github.com/codertimo/BERT-pytorch",
     description="Google AI 2018 BERT pytorch implementation",
