@@ -8,6 +8,6 @@ init_weights = 1e-3
 
 class PoincareEmbedding(nn.Embedding):
     def __init__(self, *args, **kwargs):
-        weight = Parameter(ManifoldTensor(*args, manifold=PoincareBall(), **kwargs))
-        super().__init__(*args, weight_=weight, **kwargs)
+        weight = Parameter(ManifoldTensor(*args, manifold=PoincareBall()))
+        super().__init__(*args, _weight=weight, **kwargs)
         self.weight.data.uniform_(-init_weights, init_weights)
