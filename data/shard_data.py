@@ -13,14 +13,19 @@ def make_shards(path):
     if os.path.exists(dirname):
         shutil.rmtree(dirname)
     os.mkdir(dirname)
-    num_shards = math.ceil(size / shard_size_bytes)
-    with open(path, 'rb') as f:
+    num_shards = int(math.ceil(size / shard_size_bytes))
+    with open(path, 'r') as f:
+        lines = f.readlines()
+        num_lines = len(lines)
+        shard_size_lines = int(math.ceil(num_lines / num_shards))
         for i in range(num_shards):
             shard_path = os.path.join(dirname, 'shard-%d' % i)
             print('making shard %s' % shard_path)
-            bytes_ = f.read(shard_size_bytes)
-            with open(shard_path, 'wb') as f_shard:
-                f_shard.write(bytes_)
+            lower, upper = i*shard_size_lines, min((i+1)*shard_size_lines, num_lines)
+            print(lower, upper)
+            shard_lines = lines[lower:upper]
+            with open(shard_path, 'w') as f_shard:
+                f_shard.write('\n'.join(shard_lines))
 
 def main():
     for name in ('train', 'valid', 'test'):
