@@ -1,2 +1,4 @@
 wikitext*/wikitext*/wiki.*.tokens
 wikitext*/wikitext*/wiki.*.berttokens
+**/bert.model
+**/bert.model.*

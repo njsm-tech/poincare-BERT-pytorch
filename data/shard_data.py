@@ -4,7 +4,7 @@ import shutil
 
 wikiv = 103
 data_dir = "wikitext{v}/wikitext-{v}".format(v=wikiv)
-path_template = data_dir + "/wiki.{name}.tokens"
+path_template = data_dir + "/wiki.{name}.berttokens"
 shard_size_bytes = 32 * 1024 * 1024
 
 def make_shards(path):
